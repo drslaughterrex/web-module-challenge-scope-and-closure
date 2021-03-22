@@ -16,8 +16,13 @@
 function processFirstItem(stringList, callback) {
   return callback(stringList[0])
 }
-console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
+// console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
 
+function addStrings(str){
+  return str+str;
+}
+
+processFirstItem(['foo','bar'], addStrings);
 // ⭐️ Example Challenge END ⭐️
 
 
