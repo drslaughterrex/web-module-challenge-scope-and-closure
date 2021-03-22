@@ -2,30 +2,29 @@
 
 /**Example Task : processFirstItem()
  * This example shows how you might go about solving the rest of the tasks
- * 
+ *
  * Use the higher order function processFirstItem below to do the following:
  *  1. Receive an array of strings in a parameter
  *  2. Receive a callback function that takes a string as its argument in a parameter
- *  3. Return the result of invoking the callback function and passing in the FIRST 
+ *  3. Return the result of invoking the callback function and passing in the FIRST
  *     element in the array as the argument
- * 
+ *
  * The following code is demonstrating a way of completing this task
  * It returns the string `foofoo`
-*/
+ */
 
 function processFirstItem(stringList, callback) {
-  return callback(stringList[0])
+	return callback(stringList[0]);
 }
 // console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
 
-function addStrings(str){
-  return str+str;
+function addStrings(str) {
+	return str + str;
 }
 
-processFirstItem(['foo','bar'], addStrings);
+processFirstItem(["foo", "bar"], addStrings);
 
 // ⭐️ Example Challenge END ⭐️
-
 
 ///// M V P ///////
 
@@ -49,10 +48,10 @@ processFirstItem(['foo','bar'], addStrings);
 
 // counter1 code
 function counterMaker() {
-  let count = 0;
-  return function counter() {
-   return count++;
-  }
+	let count = 0;
+	return function counter() {
+		return count++;
+	};
 }
 
 const counter1 = counterMaker();
@@ -61,9 +60,8 @@ const counter1 = counterMaker();
 let count = 0;
 
 function counter2() {
-  return count++;
+	return count++;
 }
-
 
 /* ⚾️⚾️⚾️ Task 2: inning() ⚾️⚾️⚾️
 Use the inning function below to do the following:
@@ -74,8 +72,8 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(score){
-    return Math.floor((Math.random() * 2) + 1);
+function inning(score) {
+	return Math.floor(Math.random() * 2);
 }
 console.log(inning());
 
@@ -91,19 +89,18 @@ Use the finalScore function below to do the following:
   "Home": 11,
   "Away": 5
 }
-*/ 
+*/
 
-function finalScore(inning, num){
-  let home = 0;
-  let away = 0;
-  for(let i = 0; i < num; i++){
-    home += inning();
-    away += inning();
-  }
+function finalScore(inning, num) {
+	let home = 0;
+	let away = 0;
+	for (let i = 0; i < num; i++) {
+		home += inning();
+		away += inning();
+	}
 
-  return {Home:home, Away:away};
+	return { Home: home, Away: away };
 }
-
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
@@ -111,9 +108,9 @@ Use the getInningScore() function below to do the following:
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
 function getInningScore(callBack) {
-  return finalScore(inning);
+	return {Home: inning(), Away: inning()};
 }
-
+console.log(getInningScore());
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
@@ -156,25 +153,41 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScore, inning, num) {
+  let scores = [];
+  let totalHome = 0;
+  let totalAway = 0;
+  for(let i = 1; i <= num; i++){
+    const {Home, Away} = getInningScore(inning);
+    totalHome += Home;
+    totalAway += Away;
+    scores.push(`Inning ${i}: Away ${Away} - Home ${Home}`)
+  }
+  if(totalHome === totalAway){
+    scores.push(`This game will require extra innings: Away ${totalAway} - Home ${totalHome} `)
+  }else{
+    scores.push(`Final Scores: Away ${totalAway} - Home ${totalHome}`)
+  }
+	return scores;
 }
+console.log(scoreboard(getInningScore, inning, 9));
+
 
 
 
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
-function foo(){
-  //console.log('its working');
-  return 'bar';
+function foo() {
+	//console.log('its working');
+	return "bar";
 }
-export default{
-  foo,
-  processFirstItem,
-  counter1,
-  counter2,
-  inning,
-  finalScore,
-  getInningScore,
-  scoreboard,
-}
+export default {
+	foo,
+	processFirstItem,
+	counter1,
+	counter2,
+	inning,
+	finalScore,
+	getInningScore,
+	scoreboard,
+};
